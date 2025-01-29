@@ -19,7 +19,7 @@ class PlatformController extends Controller
         return view('backend.layout.platfrom.create');
     }
     //store
-    public function store(Request $request, FlasherInterface $flasher){
+    public function store(Request $request){
         $validation=$request->validate([
             'name'=>'required|min:3|string'
         ]);
@@ -27,10 +27,26 @@ class PlatformController extends Controller
         $model->name=$request->name;
         $model->save();
 
-        return redirect()->back()->with('success','Platform Add Successfull');
+        return redirect()->route('platform')->with('success','Platform Add Successfull');
     }
-    public function edit(){
-        return 'sdfsd';
+    public function edit($id){
+        $data=Platform::findOrFail($id);
+        return view('backend.layout.platfrom.edit',compact('data'));
+    }
+    public function update(Request $request, $id){
+        $validation=$request->validate([
+            'name'=>'required|min:3|string'
+        ]);
+        $data=Platform::findOrFail($id);
+        $data->name=$request->name;
+        $data->save();
+
+        return redirect()->route('platform')->with('info','Data Update Successfull');
+    }
+    public function delete($id){
+        $data=Platform::findOrFail($id);
+        $data->delete();
+        return redirect()->route('platform')->with('success','Data Deleted Successfull');
     }
 
 

@@ -38,7 +38,7 @@
                 <h6 class="collapse-header">Platform</h6>
                 <a class="collapse-item" href=""></a>
                 <a class="collapse-item" href="{{ route('platform') }}">Platform</a>
-                <a class="collapse-item" href="cards.html">Version</a>
+                <a class="collapse-item" href="{{ route('version') }}">Version</a>
                 <a class="collapse-item" href="cards.html">Delivery Time</a>
                 <a class="collapse-item" href="cards.html">Available Amount</a>
             </div>
