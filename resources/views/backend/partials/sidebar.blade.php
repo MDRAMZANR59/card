@@ -39,8 +39,8 @@
                 <a class="collapse-item" href=""></a>
                 <a class="collapse-item" href="{{ route('platform') }}">Platform</a>
                 <a class="collapse-item" href="{{ route('version') }}">Version</a>
-                <a class="collapse-item" href="cards.html">Delivery Time</a>
-                <a class="collapse-item" href="cards.html">Available Amount</a>
+                {{-- <a class="collapse-item" href="cards.html">Delivery Time</a> --}}
+                <a class="collapse-item" href="{{ route('amount') }}">Available Amount</a>
             </div>
         </div>
     </li>
@@ -50,11 +50,11 @@
             <i class="fas fa-fw fa-cog"></i>
             <span>Card</span>
         </a>
-        {{-- <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Card</a>
+                <a class="collapse-item" href="{{ route('card') }}">Card</a>
             </div>
-        </div> --}}
+        </div>
     </li>
 
     <!-- Divider -->
