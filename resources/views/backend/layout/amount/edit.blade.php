@@ -24,10 +24,10 @@
             @csrf
 
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $data->name }}"
-                    placeholder="Amount Name">
-                @error('name')
+                <label for="title" class="form-label">Name</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $data->title }}"
+                    placeholder="Amount Title">
+                @error('title')
                     <div class="invalid-feedback d-block">
                         {{ $message }}
                     </div>

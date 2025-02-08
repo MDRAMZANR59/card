@@ -30,13 +30,6 @@
                 @error('name')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
-
-                <label for="card_id" class="form-label">Card Id</label>
-                <input type="number" class="form-control" id="card_id" name="card_id" value="{{ $data->card_id }}"
-                    placeholder="Version Name">
-                @error('card_id')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                @enderror
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>

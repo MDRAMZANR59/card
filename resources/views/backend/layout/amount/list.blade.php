@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th scope="col">Sl</th>
-                    <th scope="col">Amount Name</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                 @foreach ($amounts as $index => $amount)
                     <tr>
                         <td>{{ $amount->id }}</td>
-                        <td>{{ $amount->name }}</td>
+                        <td>{{ $amount->title }}</td>
                         <td>
                             <!-- Edit Button -->
                             <a href="{{ route('amount.edit', $amount->id) }}" class="btn btn-warning btn-sm">Edit</a>

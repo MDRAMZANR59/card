@@ -7,6 +7,8 @@ use App\Http\Controllers\AmountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VersionController;
 use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\CardAmmountController;
+use App\Http\Controllers\CardVersionController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -54,6 +56,5 @@ Route::post('card/store',[CardController::class,'store'])->name('card.store');
 Route::get('card/edit/{id}',[CardController::class,'edit'])->name('card.edit');
 Route::post('card/update/{id}',[CardController::class,'update'])->name('card.update');
 Route::post('card/delete/{id}',[CardController::class,'delete'])->name('card.delete');
-
 
 require __DIR__.'/auth.php';

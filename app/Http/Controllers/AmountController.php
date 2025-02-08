@@ -20,10 +20,10 @@ class AmountController extends Controller
     //store
     public function store(Request $request){
         $validation=$request->validate([
-            'name'=>'required|min:3|string'
+            'title'=>'required|min:1|string'
         ]);
         $model=new Amount;
-        $model->name=$request->name;
+        $model->title=$request->title;
         $model->save();
 
         return redirect()->route('amount')->with('success','Amount Add Successfull');
@@ -34,10 +34,10 @@ class AmountController extends Controller
     }
     public function update(Request $request, $id){
         $validation=$request->validate([
-            'name'=>'required|min:3|string'
+            'title'=>'required|min:1|string'
         ]);
         $data=Amount::findOrFail($id);
-        $data->name=$request->name;
+        $data->title=$request->title;
         $data->save();
 
         return redirect()->route('amount')->with('info','Data Update Successfull');

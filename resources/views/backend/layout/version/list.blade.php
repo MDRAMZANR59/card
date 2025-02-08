@@ -19,7 +19,6 @@
                 <tr>
                     <th scope="col">Sl</th>
                     <th scope="col">Version Name</th>
-                    <th scope="col">Card Id</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -28,7 +27,6 @@
                     <tr>
                         <td>{{ $version->id }}</td>
                         <td>{{ $version->name }}</td>
-                        <td>{{ $version->card_id }}</td>
                         <td>
                             <!-- Edit Button -->
                             <a href="{{ route('version.edit', $version->id) }}" class="btn btn-warning btn-sm">Edit</a>

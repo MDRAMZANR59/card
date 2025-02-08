@@ -53,6 +53,8 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('card') }}">Card</a>
+                {{-- <a class="collapse-item" href="{{ route('cardVersion') }}">Card Version</a>
+                <a class="collapse-item" href="{{ route('cardAmmount') }}">Card Ammount</a> --}}
             </div>
         </div>
     </li>

@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->string('title');
+            $table->string('usage');
+            $table->string('deliveryTime');
+            // $table->string('version_id');
+            // $table->string('ammount_id');
+            $table->string('qty');
+            $table->string('image');
             $table->timestamps();
         });
     }

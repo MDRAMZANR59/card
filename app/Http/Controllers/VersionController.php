@@ -21,11 +21,9 @@ class VersionController extends Controller
     public function store(Request $request){
         $validation=$request->validate([
             'name'=>'required|min:3|string',
-            'card_id'=>'required|min:3|string'
         ]);
         $model=new Version;
         $model->name=$request->name;
-        $model->card_id=$request->card_id;
         $model->save();
 
         return redirect()->route('version')->with('success','Version Add Successfull');
@@ -37,11 +35,9 @@ class VersionController extends Controller
     public function update(Request $request, $id){
         $validation=$request->validate([
             'name'=>'required|min:3|string',
-            'card_id'=>'required|min:3|numeric'
         ]);
         $data=Version::findOrFail($id);
         $data->name=$request->name;
-        $data->card_id=$request->card_id;
         $data->save();
 
         return redirect()->route('version')->with('info','Data Update Successfull');

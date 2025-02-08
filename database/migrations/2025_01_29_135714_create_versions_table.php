@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('versions', function (Blueprint $table) {
             $table->id();
-            $table->integer('card_id');
             $table->string('name');
             $table->timestamps();
         });
