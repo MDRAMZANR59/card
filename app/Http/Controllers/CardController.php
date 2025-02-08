@@ -120,18 +120,19 @@ class CardController extends Controller
         }
         $data->update();
         
-        $model= AmountCard::find($id);
+        // $model= AmountCard::find($id);
         foreach ($request->amount_id as $amount){
-           
+            $model=new AmountCard();
             $model->amount_id=$amount;
             $model->card_id=$data->id;
-            $model->update();
+            $model->save();
         }
-        $model= CardVersion::find($id);
+        // $model= CardVersion::find($id);
         foreach ($request->version_id as $version){
+            $model= new CardVersion();
             $model->version_id=$version;
             $model->card_id=$data->id;
-            $model->update();
+            $model->save();
         }
 
         return redirect()->route('card')->with('info','Data Update Successfull');
