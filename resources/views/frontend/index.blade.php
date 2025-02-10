@@ -7,73 +7,118 @@
     <title>Product Details - Laravel Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        /* Platform Navigation Styles */
         .nav-platform {
-            background-color: #1a1a1a;
+            background-color: #2C3E50;
             padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .nav-platform .nav-link {
-            color: #ffffff;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .nav-platform .nav-link:hover {
-            color: #cccccc;
+            color: #f39c12;
         }
 
-        .amount-button {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #dee2e6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .nav-platform .nav-item {
+            margin-right: 10px;
         }
 
-        .amount-display {
-            width: 60px;
-            text-align: center;
+        /* Main Content Styling */
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .stock-badge {
-            background-color: #f8f9fa;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            color: #198754;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        .product-card:hover {
+            transform: translateY(-5px);
         }
 
-        .stock-badge::before {
-            content: "✓";
-        }
-
-        .login-register-buttons {
-            margin-left: auto;
-        }
-
-        .product-detail-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .product-detail-container .image-col,
-        .product-detail-container .details-col {
-            flex: 1;
-            margin-right: 20px;
-        }
-
-        .product-detail-container .details-col {
-            max-width: 500px;
-        }
-
-        .product-detail-container img {
+        .product-card img {
+            object-fit: cover;
             width: 100%;
-            height: auto;
+            height: 250px;
+        }
+
+        .product-card .card-body {
+            padding: 20px;
+        }
+
+        .product-card label {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .product-usage {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+        /* Product Details Layout */
+        .card-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Platform Navigation Button Styles */
+        .login-register-buttons .nav-link {
+            font-size: 1.1rem;
+            padding: 0.8rem 1.2rem;
+            background-color: #f39c12;
+            color: #fff;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .login-register-buttons .nav-item {
+            margin-left: 15px;
+        }
+
+        .login-register-buttons .nav-link:hover {
+            background-color: #e67e22;
+        }
+
+        /* Card Image Styling */
+        .product-card .card-body .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-platform .nav-link {
+                padding: 0.8rem 1rem;
+            }
+
+            .product-card img {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -82,7 +127,7 @@
     <!-- Platform Navigation -->
     <nav class="nav-platform">
         <div class="container">
-            <div class="d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex mx-auto">
                     @foreach ($platforms as $plstform)
                         <ul class="nav">
@@ -100,7 +145,7 @@
                     @endguest
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Panal</a>
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Panel</a>
                         </li>
                     @endauth
                 </ul>
@@ -109,76 +154,25 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container my-5">
-        <div class="product-detail-container">
-            <!-- Product Image -->
-            <div class="image-col">
-                <div class="card border-0">
-                    <img src="{{ asset('backend/img/' . ($datas->image ?? 'stream card.jpeg')) }}"
-                        class="card-img-top rounded" alt="Product Image">
+    <div class="container py-5">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-wrapper">
+                        <!-- Product Cards -->
+                        @foreach ($cards as $card)
+                            <div class="product-card">
+                                <div class="card-body">
+                                    <a href="{{ route('singleCard', $card->id) }}">
+                                        <img src="{{ asset('backend/img/' . $card->image) }}" alt="No Image Found" />
+                                    </a>
+                                    <div class="product-title ">{{ $card->title }}</div>
+                                    <div class="product-usage">{{ $card->usage }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-
-            <!-- Product Details -->
-            <div class="details-col">
-                <form action="" method="">
-                    @csrf
-                    <div class="mb-4">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Platform:</h5>
-                            <span>{{ $datas->platform->name ?? '' }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Usage:</h5>
-                            <span>{{ $datas->usage ?? '' }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Version:</h5>
-                            <span>
-                                @if ($datas && $datas->CardVersion && !$datas->CardVersion->isEmpty())
-                                    <select class="form-control">
-                                        @foreach ($datas->CardVersion as $version)
-                                            <option value="{{ $version->version->id ?? '' }}">
-                                                {{ $version->version->name ?? '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Delivery Time:</h5>
-                            <span>{{ $datas->deliveryTime ?? '' }}</span>
-                        </div>
-                    </div>
-
-                    <!-- Amount Selection -->
-                    <div class="mb-4">
-                        <h5 class="mb-3">Available Amount</h5>
-                        <div class="d-flex flex-wrap gap-2 mb-4">
-                            @if ($datas && $datas->AmountCard && !$datas->AmountCard->isEmpty())
-                                @foreach ($datas->AmountCard as $amount)
-                                    <button
-                                        class="btn btn-outline-secondary">{{ $amount->amount->title ?? '' }}€</button>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Stock Status -->
-                    <div class="stock-badge mb-4">
-                        {{ $datas->qty ?? '' }} in stock
-                    </div>
-
-                    <!-- Quantity Selection -->
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="amount-button" onclick="decrementQuantity()">-</div>
-                        <input type="text" class="amount-display form-control" value="1" readonly>
-                        <div class="amount-button" onclick="incrementQuantity()">+</div>
-                        <button class="btn btn-warning">BUY NOW</button>
-                        <button class="btn btn-outline-primary">ADD TO CART</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

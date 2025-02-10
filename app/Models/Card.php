@@ -23,16 +23,16 @@ class Card extends Model
     public function AmountCard(){
        return $this->hasMany(AmountCard::class);
     }
-
+   
     public function CardVersion(){
         return $this->hasMany(CardVersion::class);
     }
  
-    // public function varsion(){
-    //     return $this->belongsTo(Version::class);
-    // }
-    // public function amount(){
-    //     return $this->belongsToMany(Amount::class);
-    // }
+    public function varsion(){
+        return $this->belongsTo(Version::class);
+    }
+    public function amount(){
+        return $this->belongsToMany(Amount::class);
+    }
    
 }

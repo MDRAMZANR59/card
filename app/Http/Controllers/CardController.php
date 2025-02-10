@@ -13,10 +13,16 @@ use Illuminate\Http\Request;
 class CardController extends Controller
 {
     public function index_home(){
-        $datas =Card::find(1);
+        $cards =Card::get();
         // dd($datas);
         $platforms=Platform::get();
-        return view('frontend.index', compact('datas','platforms'));
+        return view('frontend.index', compact('cards','platforms'));
+    }
+
+    public function show($id){
+        $datas=Card::findOrFail($id);
+        $platforms=Platform::get();
+        return view('frontend.singlecard',compact('datas','platforms'));
     }
 
      // show card
@@ -84,8 +90,8 @@ class CardController extends Controller
         $olddata=Card::findOrFail($id);
         $platforms=Platform::get();
         $version=Version::get();
-        $amount=Amount::get();
-        return view('backend.layout.card.edit',compact('olddata','platforms','version','amount'));
+        $amounts=Amount::get();
+        return view('backend.layout.card.edit',compact('olddata','platforms','version','amounts'));
     }
     public function update(Request $request, $id){
         $validation=$request->validate([
@@ -118,9 +124,11 @@ class CardController extends Controller
             
             $data->image=$newImage;
         }
+
         $data->update();
-        
+        // $data=card::findOrFail(id);
         // $model= AmountCard::find($id);
+        // $data= AmountCard::find($id)->detach($request->amount_id);
         foreach ($request->amount_id as $amount){
             $model=new AmountCard();
             $model->amount_id=$amount;
@@ -128,6 +136,7 @@ class CardController extends Controller
             $model->save();
         }
         // $model= CardVersion::find($id);
+        // $data=CardVersion::find($id)->detach([$request->version_id]);
         foreach ($request->version_id as $version){
             $model= new CardVersion();
             $model->version_id=$version;
@@ -141,8 +150,9 @@ class CardController extends Controller
         $data=Card::findOrFail($id);
         if($data->image){
             $imagePath=public_path('backend/img/'.$data->image);
-            unlink($imagePath);
-
+            if(file_exists($imagePath)){
+                unlink($imagePath);
+            }
         }
         $data->delete();
 

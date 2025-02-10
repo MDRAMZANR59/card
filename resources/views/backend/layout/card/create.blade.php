@@ -27,12 +27,13 @@
             @csrf
             <div class="row mb-3">
                 <!-- Platform Select -->
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <label for="platform_id" class="form-label">Platform</label>
                     <select class="form-select" id="platform_id" name="platform_id">
                         <option value="">Select One</option>
                         @foreach ($platform as $platform)
-                            <option value="{{ $platform->id }}">{{ $platform->name }}</option>
+                            <option value="{{ $platform->id }}" @if (old('platform_id') == $platform->id) Selected @endif>
+                                {{ $platform->name }}</option>
                         @endforeach
                     </select>
                     @error('platform_id')
@@ -41,11 +42,13 @@
                 </div>
 
                 <!-- Version-->
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <label for="version_id" class="form-label">Card Version Name</label>
-                    <select class="js-example-basic-multiple" id="version_id" multiple="multiple" name="version_id[]">
+                    <select class="js-example-basic-multiple form-select" id="version_id" multiple="multiple"
+                        name="version_id[]">
                         @foreach ($version as $version)
-                            <option value="{{ $version->id }}">{{ $version->name }}</option>
+                            <option value="{{ $version->id }}" @if (in_array($version->id, old('version_id', []))) Selected @endif>
+                                {{ $version->name }}</option>
                         @endforeach
                     </select>
                     @error('version_id')
@@ -54,11 +57,13 @@
                 </div>
 
                 <!-- Amount-->
-                <div class="col-12 col-md-4">
+                <div class="col-12"> <!-- col-md-6 used to make it larger -->
                     <label for="amount_id" class="form-label">Amounts</label>
-                    <select class="js-example-basic-multiple" id="amount_id" multiple="multiple" name="amount_id[]">
+                    <select class="js-example-basic-multiple form-select" id="amount_id" multiple="multiple"
+                        name="amount_id[]">
                         @foreach ($amount as $amount)
-                            <option value="{{ $amount->id }}">{{ $amount->title }}</option>
+                            <option value="{{ $amount->id }}" @if (in_array($amount->id, old('amount_id', []))) Selected @endif>
+                                {{ $amount->title }} </option>
                         @endforeach
                     </select>
                     @error('amount_id')
@@ -127,9 +132,17 @@
             $(document).ready(function() {
                 // Initialize select2 for multiple selections
                 $('.js-example-basic-multiple').select2({
-                    // Ensures the select box takes up the full width
+                    placeholder: "Select one or more",
+                    allowClear: true
                 });
             });
         </script>
     @endpush
+
+    <style>
+        #amount_id,
+        #version_id {
+            width: 100%;
+        }
+    </style>
 @endsection

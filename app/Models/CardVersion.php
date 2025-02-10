@@ -30,6 +30,10 @@ class CardVersion extends Model
     {
         return $this->belongsTo(Card::class);
     }
+    // public function cardc()
+    // {
+    //     return $this->belongsToMany(Card::class);
+    // }
     public function version()
     {
         return $this->belongsTo(Version::class);

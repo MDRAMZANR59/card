@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 });
 //Home Route
 Route::get('/',[CardController::class,'index_home'])->name('home');
+Route::get('card/Single_Card/{id}',[CardController::class,'show'])->name('singleCard');
 
 //Admin Route
 Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');

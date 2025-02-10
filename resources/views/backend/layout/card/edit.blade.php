@@ -24,21 +24,10 @@
         <!-- Form for editing a card -->
         <form action="{{ route('card.update', $olddata->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <!-- Title Field -->
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                    value="{{ old('title', $olddata->title) }}" />
-                @error('title')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
 
             <!-- Platform Select -->
             <div class="row">
-                <div class="mb-3">
+                <div class="col-12">
                     <label for="platform_id" class="form-label">Platform</label>
                     <select class="form-select" id="platform_id" name="platform_id">
                         @foreach ($platforms as $platform)
@@ -53,11 +42,12 @@
                         </div>
                     @enderror
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <label for="version_id" class="form-label">Card Version Name</label>
                     <select class="js-example-basic-multiple" id="version_id" multiple="multiple" name="version_id[]">
                         @foreach ($version as $version)
-                            <option value="{{ $version->id }}">{{ $version->name }}</option>
+                            <option value="{{ $version->id }}" @if ($olddata->CardVersion->contains('version_id', $version->id)) selected @endif>
+                                {{ $version->name }}</option>
                         @endforeach
                     </select>
                     @error('version_id')
@@ -66,11 +56,13 @@
                 </div>
 
                 <!-- Amount-->
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <label for="amount_id" class="form-label">Amounts</label>
                     <select class="js-example-basic-multiple" id="amount_id" multiple="multiple" name="amount_id[]">
-                        @foreach ($amount as $amount)
-                            <option value="{{ $amount->id }}">{{ $amount->title }}</option>
+                        @foreach ($amounts as $amount)
+                            <option value="{{ $amount->id }}" @if ($olddata->AmountCard->contains('amount_id', $amount->id)) selected @endif>
+                                {{ $amount->title }}
+                            </option>
                         @endforeach
                     </select>
                     @error('amount_id')
@@ -78,9 +70,22 @@
                     @enderror
                 </div>
 
+
+                <!-- Title Field -->
+                <div class="col-12">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                        value="{{ old('title', $olddata->title) }}" />
+                    @error('title')
+                        <div class="invalid-feedback d-block">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
             </div>
             <!-- Usage Field -->
-            <div class="mb-3">
+            <div>
                 <label for="usage" class="form-label">Usage</label>
                 <input type="text" class="form-control" id="usage" name="usage" placeholder="Usage"
                     value="{{ old('usage', $olddata->usage) }}" />
@@ -92,7 +97,7 @@
             </div>
 
             <!-- Delivery Time Field -->
-            <div class="mb-3">
+            <div>
                 <label for="deliveryTime" class="form-label">Delivery Time</label>
                 <input type="text" class="form-control" id="deliveryTime" name="deliveryTime" placeholder="Delivery Time"
                     value="{{ old('deliveryTime', $olddata->deliveryTime) }}" />
@@ -104,7 +109,7 @@
             </div>
 
             <!-- Quantity Field -->
-            <div class="mb-3">
+            <div>
                 <label for="qty" class="form-label">Quantity</label>
                 <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantity"
                     value="{{ old('qty', $olddata->qty) }}" />
@@ -116,7 +121,7 @@
             </div>
 
             <!-- Image Field -->
-            <div class="mb-3">
+            <div>
                 <label for="image" class="form-label">Photo</label>
                 <input type="file" class="form-control" id="image" name="image" />
                 @if ($olddata->image)
@@ -132,7 +137,7 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="mb-3">
+            <div>
                 <button type="submit" class="btn btn-success w-100">Submit</button>
             </div>
         </form>
@@ -142,9 +147,16 @@
             $(document).ready(function() {
                 // Initialize select2 for multiple selections
                 $('.js-example-basic-multiple').select2({
-                    // Ensures the select box takes up the full width
+                    placeholder: "Select One Or More",
+                    allowClear: true
                 });
             });
         </script>
+        <style>
+            #version_id,
+            #amount_id {
+                width: 100%
+            }
+        </style>
     @endpush
 @endsection
