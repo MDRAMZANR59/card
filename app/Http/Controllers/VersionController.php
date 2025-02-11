@@ -7,45 +7,72 @@ use Illuminate\Http\Request;
 
 class VersionController extends Controller
 {
-    // show version
-    public function index(){
-
-        $versions=Version::get();
-        return view('backend.layout.version.list',compact('versions'));
+    /**
+     * Display the list of versions.
+     */
+    public function index()
+    {
+        $versions = Version::get();
+        return view('backend.layout.version.list', compact('versions'));
     }
-    //create
-    public function create(){
+
+    /**
+     * Show the form to create a new version.
+     */
+    public function create()
+    {
         return view('backend.layout.version.create');
     }
-    //store
-    public function store(Request $request){
-        $validation=$request->validate([
-            'name'=>'required|min:3|string',
+
+    /**
+     * Store a new version.
+     */
+    public function store(Request $request)
+    {
+        $validation = $request->validate([
+            'name' => 'required|min:3|string',
         ]);
-        $model=new Version;
-        $model->name=$request->name;
+
+        $model = new Version;
+        $model->name = $request->name;
         $model->save();
 
-        return redirect()->route('version')->with('success','Version Add Successfull');
+        return redirect()->route('version')->with('success', 'Version Added Successfully');
     }
-    public function edit($id){
-        $data=Version::findOrFail($id);
-        return view('backend.layout.version.edit',compact('data'));
+
+    /**
+     * Show the form to edit an existing version.
+     */
+    public function edit($id)
+    {
+        $data = Version::findOrFail($id);
+        return view('backend.layout.version.edit', compact('data'));
     }
-    public function update(Request $request, $id){
-        $validation=$request->validate([
-            'name'=>'required|min:3|string',
+
+    /**
+     * Update the version information.
+     */
+    public function update(Request $request, $id)
+    {
+        $validation = $request->validate([
+            'name' => 'required|min:3|string',
         ]);
-        $data=Version::findOrFail($id);
-        $data->name=$request->name;
+
+        $data = Version::findOrFail($id);
+        $data->name = $request->name;
         $data->save();
 
-        return redirect()->route('version')->with('info','Data Update Successfull');
-    }
-    public function delete($id){
-        $data=Version::findOrFail($id);
-        $data->delete();
-        return redirect()->route('version')->with('success','Data Deleted Successfull');
+        return redirect()->route('version')->with('info', 'Data Updated Successfully');
     }
 
+    /**
+     * Delete the version.
+     */
+    public function delete($id)
+    {
+        $data = Version::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('version')->with('success', 'Data Deleted Successfully');
+    }
 }

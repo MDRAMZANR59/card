@@ -11,7 +11,8 @@ class Platform extends Model
     /** @use HasFactory<\Database\Factories\PlatformFactory> */
     use HasFactory;
 
-    public function card(){
+    public function card()
+    {
         $this->hasOne(Card::class);
     }
 }

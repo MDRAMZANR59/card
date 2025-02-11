@@ -10,7 +10,8 @@ class Version extends Model
 {
     protected $table = 'versions';
 
-    public function card(){
+    public function card()
+    {
         return $this->belongsToMany(Card::class);
     }
 

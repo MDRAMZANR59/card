@@ -111,8 +111,7 @@
                         <td>{{ $card->usage }}</td>
                         <td>
                             @foreach ($card->CardVersion as $cardVersion)
-                                {{ $cardVersion->version->name . ',' }}
-                                <!-- এখানে version.name দিয়ে version এর নাম দেখানো হবে -->
+                                {{ $cardVersion->version->name . ',' }}<!-- Show Here With "version.name" to Name Of All version  -->
                             @endforeach
                         </td>
                         <td>{{ $card->deliveryTime }}</td>

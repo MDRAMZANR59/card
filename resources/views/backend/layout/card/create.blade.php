@@ -138,11 +138,4 @@
             });
         </script>
     @endpush
-
-    <style>
-        #amount_id,
-        #version_id {
-            width: 100%;
-        }
-    </style>
 @endsection

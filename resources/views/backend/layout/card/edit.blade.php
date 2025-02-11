@@ -152,11 +152,5 @@
                 });
             });
         </script>
-        <style>
-            #version_id,
-            #amount_id {
-                width: 100%
-            }
-        </style>
     @endpush
 @endsection

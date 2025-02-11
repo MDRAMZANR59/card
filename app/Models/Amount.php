@@ -12,13 +12,13 @@ class Amount extends Model
     /** @use HasFactory<\Database\Factories\AmountFactory> */
     use HasFactory;
 
-    public function card(){
-
+    public function card()
+    {
         return $this->belongsToMany(Card::class);
-        
-        }
+    }
 
-   public function amountCard(){
+   public function amountCard()
+   {
     return $this->hasMany(AmountCard::class);
    }
   

@@ -10,11 +10,13 @@ class CardVersion extends Model
 
     protected $fillable = ['version_id', 'card_id'];
 
-    public function card(){
+    public function card()
+    {
         return $this->belongsTo(Card::class);
     }
    
-    public function version(){
+    public function version()
+    {
         return $this->belongsTo(Version::class);
     }
 }

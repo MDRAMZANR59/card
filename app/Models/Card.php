@@ -16,24 +16,27 @@ class Card extends Model
     use HasFactory;
     protected $table='cards';
     //acces platform data
-    public function platform(){
+    public function platform()
+    {
         return $this->belongsTo(Platform::class);
     }
-    public function varsion(){
+    public function varsion()
+    {
         return $this->belongsToMany(Version::class);
     }
-    public function amount(){
-        return $this->belongsToMany(Amount::class);
+    public function amount()
+    {
+        return $this->belongsTo(Amount::class);
     }
 
-    public function AmountCard(){
+    public function AmountCard()
+    {
        return $this->hasMany(AmountCard::class);
     }
    
-    public function CardVersion(){
+    public function CardVersion()
+    {
         return $this->hasMany(CardVersion::class);
     }
  
-
-   
 }
