@@ -12,10 +12,6 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        Card::create(
-            [
-                `platform_id`=>1 `title`, `usage`, `deliveryTime`, `qty`, `image`,
-            ]
-        )
+        //
     }
 }
