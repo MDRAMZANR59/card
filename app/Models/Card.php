@@ -19,6 +19,12 @@ class Card extends Model
     public function platform(){
         return $this->belongsTo(Platform::class);
     }
+    public function varsion(){
+        return $this->belongsToMany(Version::class);
+    }
+    public function amount(){
+        return $this->belongsToMany(Amount::class);
+    }
 
     public function AmountCard(){
        return $this->hasMany(AmountCard::class);
@@ -28,11 +34,6 @@ class Card extends Model
         return $this->hasMany(CardVersion::class);
     }
  
-    public function varsion(){
-        return $this->belongsTo(Version::class);
-    }
-    public function amount(){
-        return $this->belongsToMany(Amount::class);
-    }
+
    
 }

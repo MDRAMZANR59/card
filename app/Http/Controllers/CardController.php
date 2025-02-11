@@ -93,8 +93,9 @@ class CardController extends Controller
         $amounts=Amount::get();
         return view('backend.layout.card.edit',compact('olddata','platforms','version','amounts'));
     }
+
     public function update(Request $request, $id){
-        $validation=$request->validate([
+        $validation = $request->validate([
             'platform_id' => 'required|min:1|string',
             'title' => 'required|min:1|string',
             'usage' => 'required|min:1|string',
@@ -107,45 +108,46 @@ class CardController extends Controller
             'image' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:3068'
         ]);
        
-        $data= Card::find($id);
+        $data = Card::find($id);
         $data->platform_id = $request->platform_id;
         $data->title = $request->title;
         $data->usage = $request->usage;
         $data->deliveryTime = $request->deliveryTime;
         $data->qty = $request->qty;
-
-        if($request->hasFile('image')){
-            // dd($request->hasFile('image'));
-            if($data->image && file_exists(public_path('backend/img/'.$data->image))){
-                unlink(public_path('backend/img/'.$data->image));
+    
+        if ($request->hasFile('image')) {
+            if ($data->image && file_exists(public_path('backend/img/' . $data->image))) {
+                unlink(public_path('backend/img/' . $data->image));
             }
-            $newImage=time().'.'.$request->image->extension();
-            $request->image->move(public_path('backend/img'),$newImage);
-            
-            $data->image=$newImage;
+            $newImage = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('backend/img'), $newImage);
+            $data->image = $newImage;
         }
-
+    
         $data->update();
-        // $data=card::findOrFail(id);
-        // $model= AmountCard::find($id);
-        // $data= AmountCard::find($id)->detach($request->amount_id);
-        foreach ($request->amount_id as $amount){
-            $model=new AmountCard();
-            $model->amount_id=$amount;
-            $model->card_id=$data->id;
-            $model->save();
-        }
-        // $model= CardVersion::find($id);
-        // $data=CardVersion::find($id)->detach([$request->version_id]);
-        foreach ($request->version_id as $version){
-            $model= new CardVersion();
-            $model->version_id=$version;
-            $model->card_id=$data->id;
-            $model->save();
-        }
+    
+        $data->amountCard()->delete();
+    
+        $data->cardVersion()->delete();
+    
+        foreach($request->amount_id as $amountId){
+            $amount=new AmountCard();
+            $amount->amount_id = $amountId;
+            $amount->card_id = $data->id;
+            $amount->save();
+            }
 
-        return redirect()->route('card')->with('info','Data Update Successfull');
+        foreach ($request->version_id as $versionId) {
+            $version = new CardVersion();
+            $version->version_id = $versionId;
+            $version->card_id = $data->id;
+            $version->save();
+            
+            }
+    
+        return redirect()->route('card')->with('info', 'Data Update Successfull');
     }
+    
     public function delete($id){
         $data=Card::findOrFail($id);
         if($data->image){

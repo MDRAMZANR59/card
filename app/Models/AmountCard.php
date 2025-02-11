@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Card;
@@ -12,14 +11,16 @@ class AmountCard extends Model
     /** @use HasFactory<\Database\Factories\AmountCardFactory> */
     use HasFactory;
 
-    public function card(){
-       return $this->belongsTo(Card::class);
-    }
-    // public function cardc(){
-    //    return $this->belongsToMany(Card::class);
-    // }
+    protected $fillable = ['amount_id', 'card_id'];
 
-    public function amount(){
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
+    }
+
+    public function amount()
+    {
         return $this->belongsTo(Amount::class);
     }
 }
+
