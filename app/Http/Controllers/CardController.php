@@ -57,7 +57,7 @@ class CardController extends Controller
             'amount_id' => 'required|min:1|array',
             'amount.*' => 'integer|exists:amount,id',
             'qty' => 'required|min:1|numeric',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:3068'
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:3068'
         ]);
 
         $imageName = null;
@@ -115,7 +115,7 @@ class CardController extends Controller
             'amount_id' => 'required|min:1|array',
             'amount.*' => 'integer|exists:amount,id',
             'qty' => 'required|min:1|numeric',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:3068'
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:3068'
         ]);
 
         $data = Card::find($id);

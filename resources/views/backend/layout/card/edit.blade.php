@@ -25,8 +25,8 @@
         <form action="{{ route('card.update', $olddata->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Platform Select -->
-            <div class="row">
+            <div class="row mb-3">
+                <!-- Platform Select -->
                 <div class="col-12">
                     <label for="platform_id" class="form-label">Platform</label>
                     <select class="form-select" id="platform_id" name="platform_id">
@@ -37,17 +37,19 @@
                         @endforeach
                     </select>
                     @error('platform_id')
-                        <div class="invalid-feedback d-block">
-                            {{ $message }}
-                        </div>
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
+
+                <!-- Version -->
                 <div class="col-12">
                     <label for="version_id" class="form-label">Card Version Name</label>
-                    <select class="js-example-basic-multiple" id="version_id" multiple="multiple" name="version_id[]">
+                    <select class="js-example-basic-multiple form-select" id="version_id" multiple="multiple"
+                        name="version_id[]">
                         @foreach ($version as $version)
                             <option value="{{ $version->id }}" @if ($olddata->CardVersion->contains('version_id', $version->id)) selected @endif>
-                                {{ $version->name }}</option>
+                                {{ $version->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('version_id')
@@ -55,10 +57,11 @@
                     @enderror
                 </div>
 
-                <!-- Amount-->
+                <!-- Amount -->
                 <div class="col-12">
                     <label for="amount_id" class="form-label">Amounts</label>
-                    <select class="js-example-basic-multiple" id="amount_id" multiple="multiple" name="amount_id[]">
+                    <select class="js-example-basic-multiple form-select" id="amount_id" multiple="multiple"
+                        name="amount_id[]">
                         @foreach ($amounts as $amount)
                             <option value="{{ $amount->id }}" @if ($olddata->AmountCard->contains('amount_id', $amount->id)) selected @endif>
                                 {{ $amount->title }}
@@ -69,59 +72,50 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-
-
-                <!-- Title Field -->
-                <div class="col-12">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                        value="{{ old('title', $olddata->title) }}" />
-                    @error('title')
-                        <div class="invalid-feedback d-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
             </div>
+
+            <!-- Title Field -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                    value="{{ old('title', $olddata->title) }}" />
+                @error('title')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+            </div>
+
             <!-- Usage Field -->
-            <div>
+            <div class="mb-3">
                 <label for="usage" class="form-label">Usage</label>
                 <input type="text" class="form-control" id="usage" name="usage" placeholder="Usage"
                     value="{{ old('usage', $olddata->usage) }}" />
                 @error('usage')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Delivery Time Field -->
-            <div>
+            <div class="mb-3">
                 <label for="deliveryTime" class="form-label">Delivery Time</label>
                 <input type="text" class="form-control" id="deliveryTime" name="deliveryTime" placeholder="Delivery Time"
                     value="{{ old('deliveryTime', $olddata->deliveryTime) }}" />
                 @error('deliveryTime')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Quantity Field -->
-            <div>
+            <div class="mb-3">
                 <label for="qty" class="form-label">Quantity</label>
                 <input type="number" class="form-control" id="qty" name="qty" placeholder="Quantity"
                     value="{{ old('qty', $olddata->qty) }}" />
                 @error('qty')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Image Field -->
-            <div>
+            <div class="mb-3">
                 <label for="image" class="form-label">Photo</label>
                 <input type="file" class="form-control" id="image" name="image" />
                 @if ($olddata->image)
@@ -130,24 +124,23 @@
                     </div>
                 @endif
                 @error('image')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- Submit Button -->
-            <div>
+            <div class="mb-3">
                 <button type="submit" class="btn btn-success w-100">Submit</button>
             </div>
         </form>
     </div>
+
     @push('script')
         <script>
             $(document).ready(function() {
                 // Initialize select2 for multiple selections
                 $('.js-example-basic-multiple').select2({
-                    placeholder: "Select One Or More",
+                    placeholder: "Select one or more",
                     allowClear: true
                 });
             });
