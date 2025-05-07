@@ -7,7 +7,8 @@ use App\Http\Controllers\AmountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VersionController;
 use App\Http\Controllers\PlatformController;
-Route::get('/dashboard', [DashboardController::class, 'index'])
+
+Route::get('/dashboard', [AdminController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -86,4 +87,4 @@ Route::post('card/update/{id}', [CardController::class, 'update'])
 Route::post('card/delete/{id}', [CardController::class, 'delete'])
     ->name('card.delete');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
